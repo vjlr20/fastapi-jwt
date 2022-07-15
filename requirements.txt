@@ -4,6 +4,8 @@ colorama==0.4.5
 fastapi==0.79.0
 h11==0.13.0
 idna==3.3
+mysqlclient==2.1.1
+passlib==1.7.4
 peewee==3.15.1
 pydantic==1.9.1
 sniffio==1.2.0
