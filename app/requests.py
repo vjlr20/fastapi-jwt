@@ -7,6 +7,7 @@ class UserRequestModel(BaseModel):
     lastname: str
     email: str
     password: str
+    type: int
 
     @validator('email')
     def email_validator(cls, email):
@@ -19,4 +20,6 @@ class UserRequestModel(BaseModel):
 
         return email
 
+class UserTypeRequestModel(BaseModel):
+    name: str
 

@@ -1,7 +1,7 @@
 from fastapi import FastAPI, APIRouter
 
 from .core.database import database as connection
-from .models.user import User
+from .models.user import User, UserType
 from .routes import *
 
 from config import config
@@ -23,7 +23,7 @@ async def startup():
     if connection.is_closed():
         connection.connect()
 
-    connection.create_tables([User])
+    connection.create_tables([ User, UserType ])
 
 @app.on_event('shutdown')
 async def shutdown():

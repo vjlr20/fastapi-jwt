@@ -1,3 +1,4 @@
+from fastapi import Response
 from .schemas import ResponseModel
 
 class UserResponseModel(ResponseModel):
@@ -6,3 +7,7 @@ class UserResponseModel(ResponseModel):
     lastname: str
     email: str
     username: str
+
+class UserTypeResponseModel(ResponseModel):
+    id: str
+    name: str

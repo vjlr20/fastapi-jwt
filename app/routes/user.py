@@ -3,7 +3,7 @@ import random
 from fastapi import APIRouter, HTTPException
 from typing import List
 
-from ..models.user import User
+from ..models.user import User, UserType
 from ..requests import *
 from ..responses import *
 
@@ -36,9 +36,19 @@ async def store(request: UserRequestModel):
         lastname = request.lastname,
         username = username.lower(),
         email = request.email,
-        password = hash_password
+        password = hash_password,
+        type = request.type
     )
     user.save()
 
     return user
+
+@router.post('/types', response_model = UserTypeResponseModel)
+async def new_type(request: UserTypeRequestModel):
+    type = UserType(
+        name = request.name
+    )
+    type.save()
+
+    return type
 
