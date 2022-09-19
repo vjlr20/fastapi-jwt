@@ -1,6 +1,6 @@
 import random
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from typing import List
 
 from ..models.user import User, UserType
@@ -8,17 +8,18 @@ from ..requests import *
 from ..responses import *
 
 from ..core.hashing import Hasher
+from ..common import oauth2_schema
 
 router = APIRouter(prefix = '/users')
 
 @router.get('', response_model = List[UserResponseModel])
-async def index():
+async def index(token: str = Depends(oauth2_schema)):
     users = User.select()
 
     return [user for user in users]
 
 @router.post('', response_model = UserResponseModel)
-async def store(request: UserRequestModel):
+async def store(request: UserRequestModel, token: str = Depends(oauth2_schema)):
     if User.select().where(User.email == request.email).first():
         raise HTTPException(409, 'El correo electrónico ya se encuentra en uso.')
 

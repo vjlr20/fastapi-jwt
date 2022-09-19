@@ -3,6 +3,7 @@ import datetime
 from peewee import *
 
 from ..core.database import database
+from ..core.hashing import Hasher
 
 class UserType(Model):
     name = CharField(max_length = 100, null = False)
@@ -34,6 +35,15 @@ class User(Model):
     class Meta:
         database = database
         table_name = 'users'
+
+    @classmethod
+    def authenticate(cls, username, password):
+        user = cls.select().where(cls.username == username).first()
+
+        hasher = Hasher()
+
+        if user and hasher.verify_password(password, user.password):
+            return user
 
     def save(self, *args, **kwargs):
         self.updated_at = datetime.datetime.now()

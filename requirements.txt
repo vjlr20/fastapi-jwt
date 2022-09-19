@@ -11,6 +11,9 @@ passlib==1.7.4
 peewee==3.15.1
 pycparser==2.21
 pydantic==1.9.1
+PyJWT==2.4.0
+python-multipart==0.0.5
+six==1.16.0
 sniffio==1.2.0
 starlette==0.19.1
 typing_extensions==4.3.0
